@@ -27,6 +27,18 @@ public class Product {
 		super();
 	}
 	
+	
+	public Product(Vendor vendor, String partNumber, String name, double price, String unit, String photoPass) {
+		super();
+		this.vendor = vendor;
+		this.partNumber = partNumber;
+		this.name = name;
+		this.price = price;
+		this.unit = unit;
+		this.photoPass = photoPass;
+	}
+
+
 	public Product (int id, Vendor vendor, String vendorPartNumber, String name, 
 			        double price, String unit, String photoPass) {
 		

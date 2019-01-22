@@ -1,5 +1,6 @@
 package com.prs;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.hibernate.dialect.identity.SybaseAnywhereIdentityColumnSupport;
@@ -29,7 +30,7 @@ public class PrsJpaDemoApplication {
 		int o = 0;
 		while (0 != 9) {
 			displayMenu();
-			o = Console.getInt("Enter Option: ", 0, 19);
+			o = Console.getInt("Enter Option: ", 0, 22);
 			if (o == 1) {
 				// get all users
 				List<User> users = UserDB.getAll();
@@ -185,7 +186,50 @@ public class PrsJpaDemoApplication {
 				PurchaseRequestLineItemDB.update(purchaseRequestLineItems);
 				System.out.println("You successfully updated a purchase request line item");
 			}
+			else if (o==18) {
+				int vendorId=Console.getInt("Enter Vendor Id");
+				Vendor vendor=VendorDB.getVendorById(vendorId);
+				String partNumber=Console.getString("Enter part number");
+				String name=Console.getString("Enter a new product name: ");
+				double price=Console.getDouble("Enter product price: ");
+				String unit=Console.getString("Enter product unit: ");
+				String photoPass=Console.getString("Enter photoPass: ");
+				
+				Product product= new Product(vendor,partNumber,name,price,unit,photoPass);
+				ProductDB.insert(product);
+				System.out.println("you succsessfulle added a new product");
+			}
+			else if(o==19) {
+				int id=Console.getInt("Enter product id to delete: ");
+				Product products= ProductDB.getProductById(id);
+				if ( products == null) {
+					System.out.println("No product found for Id");
+				} else {
+					if (ProductDB.delete(products)) {
+						// success
+						System.out.println("Product successfully deleted");
 
+					} else {
+						System.out.println("Error deleting a product");
+					}
+				}
+				ProductDB.delete(products);
+			}
+			else if(o==20) {
+				int userId=Console.getInt("Enter user Id: ");
+				User user=UserDB.getUserById(userId);
+				String description=Console.getString("Enter description: ");
+				String justification=Console.getString("Enter justification: ");
+				LocalDate dateNeeded =LocalDate.parse(justification, null);
+				String deliveryMode=Console.getString("Enter delivery mode: ");
+				String status=Console.getString("Enter status: ");
+				double total=Console.getDouble("Enter total: ");
+				LocalDate submittedDate=LocalDate.parse(justification, null);
+				String reasonForRejection=Console.getString("Enter reason for rejection: ");
+				
+				PurchaseRequest purchaseRequest= new PurchaseRequest(user,description,justification,
+						dateNeeded,deliveryMode,status,total,submittedDate,reasonForRejection);
+			}
 			else {
 				System.out.println("Good bye!!!");
 			}
@@ -212,6 +256,9 @@ public class PrsJpaDemoApplication {
 		System.out.println("15-get products by vendor id");
 		System.out.println("16-Delete a purchase request line item");
 		System.out.println("17-Update purchase request line item");
-		System.out.println("18-exit");
+		System.out.println("18-Add a new product");
+		System.out.println("19-Delete a product");
+		System.out.println("20-Add a new purchase request");
+		System.out.println("21-exit");
 	}
 }

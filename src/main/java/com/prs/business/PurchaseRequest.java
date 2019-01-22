@@ -1,6 +1,7 @@
 package com.prs.business;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,11 +20,11 @@ public class PurchaseRequest {
 	private User user;
 	private String description;
 	private String justification;
-	private Date dateNeeded;
+	private LocalDate dateNeeded;
 	private String deliveryMode;
 	private String status;
 	private double total;
-	private Date submittedDate;
+	private LocalDate submittedDate;
 	private String reasonForRejection;
 	
 	
@@ -31,9 +32,25 @@ public class PurchaseRequest {
 	public PurchaseRequest() {
 		super();
 	}
+	
 
-	public PurchaseRequest(int id, User user, String description, String justification, Date dateNeeded,
-			String deliveryMode, String status, double total, Date submittedDate, String reasonForRejection) {
+	public PurchaseRequest(User user, String description, String justification, LocalDate dateNeeded, String deliveryMode,
+			String status, double total, LocalDate submittedDate, String reasonForRejection) {
+		super();
+		this.user = user;
+		this.description = description;
+		this.justification = justification;
+		this.dateNeeded = dateNeeded;
+		this.deliveryMode = deliveryMode;
+		this.status = status;
+		this.total = total;
+		this.submittedDate = submittedDate;
+		this.reasonForRejection = reasonForRejection;
+	}
+
+
+	public PurchaseRequest(int id, User user, String description, String justification, LocalDate dateNeeded,
+			String deliveryMode, String status, double total, LocalDate submittedDate, String reasonForRejection) {
     this.id=id;
     this.user= user;
     this.description=description;
@@ -78,11 +95,11 @@ public class PurchaseRequest {
 		this.justification = justification;
 	}
 
-	public Date getDateNeeded() {
+	public LocalDate getDateNeeded() {
 		return dateNeeded;
 	}
 
-	public void setDateNeeded(Date dateNeeded) {
+	public void setDateNeeded(LocalDate dateNeeded) {
 		this.dateNeeded = dateNeeded;
 	}
 
@@ -110,11 +127,11 @@ public class PurchaseRequest {
 		this.total = total;
 	}
 
-	public Date getSubmittedDate() {
+	public LocalDate getSubmittedDate() {
 		return submittedDate;
 	}
 
-	public void setSubmittedDate(Date submittedDate) {
+	public void setSubmittedDate(LocalDate submittedDate) {
 		this.submittedDate = submittedDate;
 	}
 
